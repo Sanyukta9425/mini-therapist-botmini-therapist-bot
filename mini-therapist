@@ -1,0 +1,64 @@
+import random
+
+emotion_keywords = {
+    "sad": ["sad", "bad day", "tired", "cry", "lonely", "hopeless"],
+    "anxious": ["anxious", "worried", "stressed", "panic", "nervous"],
+    "angry": ["angry", "mad", "furious", "irritated", "frustrated"],
+    "happy": ["happy", "great", "good day", "excited", "grateful"],
+    "help": ["help", "suggest", "what should i do", "advice", "support"]
+}
+
+responses = {
+    "sad": [
+        "I'm sorry you're having a rough day. Maybe try watching your favorite show or taking a warm shower.",
+       
+        "Could you take a few minutes to do something calming, like deep breathing or listening to music?"
+    ],
+    "anxious": [
+        "Anxiety can be overwhelming. Try this: breathe in for 4, hold for 4, breathe out for 6.",
+        "Writing your thoughts down or talking to someone you trust might help.",
+        "Sometimes a short walk outside can clear the mind. Want to try that?"
+    ],
+    "angry": [
+        "Anger needs a healthy outlet. Maybe try journaling or venting to a friend.",
+        "Try physical movement like stretches or a walk to burn it off.",
+        "Youre allowed to feel angry. Lets find a safe way to express it."
+    ],
+    "happy": [
+        "Thats awesome! What made your day so good?",
+        "Keep that energy going! Maybe share your happiness with someone else today?",
+        "Love hearing that! Anything you are excited for coming up?"
+    ],
+    "help": [
+        "Sure! Heres something simple: get a glass of water, take 5 deep breaths, and listen to your favorite song.",
+        "Try writing down 3 things you are grateful for today. It can really shift your mindset.",
+        "Take a moment for yourself—stretch, breathe, or just close your eyes for a minute."
+    ],
+    "default": [
+        "I am here for you. Want to tell me more?",
+        "Whatever you're going through, you are not alone.",
+        "Lets talk about it. I am listening."
+    ]
+}
+
+def get_emotion(input_text):
+    text = input_text.lower()
+    for emotion, keywords in emotion_keywords.items():
+        for keyword in keywords:
+            if keyword in text:
+                return emotion
+    return "default"
+
+def get_response(user_input):
+    emotion = get_emotion(user_input)
+    return random.choice(responses[emotion])
+
+# Run the bot in a loop
+print("Hi! I'm your mini therapist. Tell me how you're feeling.")
+while True:
+    user_input = input("You: ")
+    if user_input.lower() in ['exit', 'quit', 'bye']:
+        print("Bot: Take care! Talk to you soon ❤️")
+        break
+    response = get_response(user_input)
+    print("Bot:", response)
